@@ -1,0 +1,21 @@
+mixin createCategory-modal()
+    #createCategoryModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='createCategoryModal', aria-hidden='true')
+            .modal-dialog(role='document')
+                .modal-body
+                    .col.el.col-5.col-sm-5.col-md-5.newThread
+                        form(method='post', action='/Category/createCategory',)
+                            .form-group
+                                label.cols-sm-2.control-label(for='name') 
+                                    | Create new category
+                                div
+                                i.fa.fa-pencil.fa(aria-hidden='true')
+                                .catName-wrapper
+                                    input#catName-input.form-control(type='text', name='catName', placeholder='Category name...', required)
+                                .catDesc-wrapper
+                                    input#catDesc-input.form-control(type='text', name='description', placeholder='Category description...', required)
+                                if user
+                                    button#createCategory-btn.btn-answer.btn.btn-primary(type='submit' formmethod='post') 
+                                        |  Save changes
+                                else
+                                    p.error-message
+                                        |  You have to be logged in to create new category.

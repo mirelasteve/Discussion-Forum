@@ -1,0 +1,22 @@
+extends ../_shared/master
+block extra
+    title Log in
+block content
+    .container
+       .row
+            .col-sm-6.col-md-4.col-md-offset-4
+                h1.text-center.login-title Please Sign in
+                .account-wall
+                    img.profile-img(src='https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120', alt='')
+                    form#loginForm.form-signin(action='/login', method='POST')
+                        input.form-control#loginUsername(type='text', name='username', placeholder='Username', required='', autofocus='')
+                        input.form-control#loginPassword(type='password', name='password', placeholder='Password', required='')
+                        p#errorResponse.error-message
+                            =authErrors
+                        button.btn.btn-lg.btn-primary.btn-block(type='submit')
+                            span.glyphicon.glyphicon-log-in
+                            |  Sign in
+                        label.checkbox.pull-left
+                        a.main-color-bg.text-center.new-account(href='/sign-up')
+                            span.glyphicon.glyphicon-info-sign
+                            |  Create an account

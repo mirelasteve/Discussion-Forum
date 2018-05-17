@@ -1,0 +1,62 @@
+extends ../_shared/master
+block content
+    .container
+        button.cat-button.main-font-weight.btn.btn-success(type='button', data-toggle='modal', data-target='#exampleModal')
+            span.glyphicon.glyphicon-plus
+            |  Create new thread
+        #exampleModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+            .modal-dialog(role='document')
+                .modal-body
+                    .col.el.col-5.col-sm-5.col-md-5.newThread
+                        form(method='post', action='/Thread/createThread', id='cr')
+                            .form-group
+                                label.cols-sm-2.control-label(for='name')
+                                    | Create new theme
+                                div
+                                i.fa.fa-pencil.fa(aria-hidden='true')
+                                .threadTitle-wrapper
+                                    input#threadTitle-input.form-control(type='text', name='threadTitle', placeholder='New thread title...', required)
+                                .postTitle-wrapper
+                                    input#postTitle-input.form-control(type='text', name='postTitle', placeholder='New Post...', required)
+                                input(type='hidden', name='catName', value=catName)
+                                .postContent-wrapper
+                                    textarea#postContent-input.form-control(rows='2'  name='postContent', placeholder='Post content...', required)
+                                if user
+                                    button#createTheme-btn.btn-answer.btn.btn-primary(type='submit' formmethod='post')
+                                        | Save changes
+                                else 
+                                    p.error-message
+                                        |  You have to be logged in to create new Theme.
+        .panel.panel-default
+            .panel-heading.category
+                .row
+                    .col.el.col-sm-1.col-md-1.col-lg-1
+                    .col.el.col-sm-6.col-md-6.col-lg-6
+                        div.main-font-weight
+                            | Threads:
+                    .col.el.col-sm-2.col-md-2.col-lg-2
+                    .col.el.col-sm-3.col-md-3.col-lg-3
+                        div.main-font-weight
+                            | Last post:
+            .panel-body
+                    each thread, index in threads
+                        .row
+                            .col.el.col-sm-1.col-md-1.col-lg-1
+                                div
+                                    span.table.glyphicon.glyphicon-envelope
+                            .col.el.col-sm-6.col-md-6.col-lg-6
+                                a.thread-name(href='/Thread/' + thread.id )
+                                    span
+                                        =thread.title
+                            .col.el.col-sm-2.col-md-2.col-lg-2
+                                p
+                                    = ' Answers: '
+                                    span.badge
+                                        = posts[index].length
+                            .col.el.col-sm-3.col-md-3.col-lg-3
+                                p
+                                    span.glyphicon.glyphicon-user
+                                    = ' From: ' + posts[index][0].username
+                                p
+                                    span.glyphicon.glyphicon-time
+                                    = ' Date: ' + posts[index][0].createdAt
